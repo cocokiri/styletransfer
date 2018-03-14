@@ -1,0 +1,22 @@
+{
+  "name": "styletransfer",
+  "version": "1.0.0",
+  "description": "stumbling in",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "art"
+  ],
+  "author": "JLo",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.6.2"
+  },
+  "dependencies": {
+    "cropperjs": "^1.3.2",
+    "jquery": "^3.3.1"
+  }
+}
