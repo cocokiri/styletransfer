@@ -881,3 +881,100 @@ INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/
 INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
 INFO:werkzeug:192.168.5.165 - - [14/Mar/2018 10:04:34] "POST /upload HTTP/1.1" 200 -
 INFO:werkzeug:192.168.5.165 - - [14/Mar/2018 10:04:35] "GET /upload HTTP/1.1" 405 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:192.168.5.165 - - [15/Mar/2018 12:26:19] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:192.168.5.165 - - [15/Mar/2018 12:26:20] "GET /upload HTTP/1.1" 405 -
+INFO:werkzeug:192.168.5.165 - - [15/Mar/2018 12:26:24] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:192.168.5.165 - - [15/Mar/2018 12:26:25] "GET /upload HTTP/1.1" 405 -
+INFO:werkzeug:192.168.5.165 - - [15/Mar/2018 12:26:28] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:192.168.5.165 - - [15/Mar/2018 12:26:28] "GET /upload HTTP/1.1" 405 -
+INFO:werkzeug:192.168.5.165 - - [15/Mar/2018 12:43:11] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:192.168.5.165 - - [15/Mar/2018 12:43:11] "GET /upload HTTP/1.1" 405 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:192.168.5.29 - - [16/Mar/2018 15:52:20] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:192.168.5.29 - - [16/Mar/2018 15:52:50] "POST /upload HTTP/1.1" 200 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:192.168.5.29 - - [23/Mar/2018 16:37:16] "POST /upload_content HTTP/1.1" 200 -
+INFO:werkzeug:192.168.5.29 - - [23/Mar/2018 16:37:16] "POST /upload_style HTTP/1.1" 200 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:48:19] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:48:19] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:48:19] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:49:14] "GET /static/ HTTP/1.1" 404 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:50:49] "GET /static/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:50:50] "GET /static/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:50:50] "GET /static/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:53:52] "GET /static/js/style.js HTTP/1.1" 404 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:56:58] "GET /static/js/style.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:56:59] "GET /static/js/style.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:57:00] "GET /static/js/style.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:57:08] "GET /static/images HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:57:48] "GET /static/images/content/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:58:10] "GET /static/images/content/golden_Gate.jpg HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 16:58:15] "GET /static/images/content/golden_gate.jpg HTTP/1.1" 200 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 17:01:48] "GET /get_content_images HTTP/1.1" 500 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 17:04:22] "GET /get_content_images HTTP/1.1" 200 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 17:06:39] "GET /get_content_images HTTP/1.1" 200 -
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu5_1/model.ckpt-15004
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu4_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu3_1/model.ckpt-15003
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu2_1/model.ckpt-15000
+INFO:tensorflow:Restoring parameters from /home/drwho/projects/style/playground/backend/models/relu1_1/model.ckpt-15002
+INFO:werkzeug: * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Mar/2018 17:22:32] "GET /get_content_images HTTP/1.1" 200 -

@@ -1,6 +1,6 @@
 from __future__ import division, print_function
 
-from flask import Flask, send_from_directory, request, send_file
+from flask import Flask, Response, send_from_directory, request, send_file, jsonify
 from flask_cors import CORS
 
 import logging
@@ -18,9 +18,11 @@ from wct import WCT
 logging.basicConfig(filename='log.txt', level=logging.INFO)
 
 TEMPLATE_PATH  = 'template.html'
-JS_PATH        = 'style.js'
 STYLECODE_PATH = '/home/drwho/projects/style/playground/'
+STATIC_PATH    = STYLECODE_PATH + 'backend/static/'
 BACKEND_PATH   = STYLECODE_PATH + 'backend/'
+CONTENT_IMG_PATH = STYLECODE_PATH + 'backend/static/images/content/'
+STYLE_IMG_PATH = STYLECODE_PATH + 'backend/static/images/style/'
 
 CHECKPOINTS  = ['models/relu5_1', 'models/relu4_1', 'models/relu3_1', 'models/relu2_1', 'models/relu1_1']
 RELU_TARGETS = ['relu5_1', 'relu4_1', 'relu3_1', 'relu2_1', 'relu1_1']
@@ -30,31 +32,44 @@ PATCH_SIZE   = 3
 STRIDE       = 1
 
 # init flask
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder=STATIC_PATH)
 CORS(app)
 
 wct_model = None
 
-@app.route("/upload", methods=['POST'])
-def post():
-    tmp_img_path = '/tmp/style_img_input.jpg'
-    tmp_img_post_path = '/tmp/style_img_styled.jpg'
+@app.route("/upload_content", methods=['POST'])
+def post_content():
     f = request.files['content_img']
-    f.save(tmp_img_path)
-    mopa = BACKEND_PATH + "models/"
-    style_size = 256
-    keep_colors = False
-    alpha = 0.8
-    style_path = STYLECODE_PATH + "images/style/shipwreck.jpg"
-    out_path = STYLECODE_PATH + "images/results/"
+    myid = str(int(time.time()*10000) + ".jpg")
+    f.save(CONTENT_IMG_PATH + myid)
+    print("+ new content image " + myid)
+    return Response("{'content_img_url':'" + myid + "'}", status=200, mimetype='application/json')
 
-    style_prefix = os.path.basename(style_path)  # Extract filename prefix without ext
-    style_img = get_img_crop(style_path, resize=style_size)
+@app.route("/upload_style", methods=['POST'])
+def post_style():
+    f = request.files['style_img']
+    myid = str(int(time.time()*10000) + ".jpg")
+    f.save(STYLE_IMG_PATH + myid)
+    print("+ new style image " + myid)
+    return Response("{'style_img_url':'" + myid + "'}", status=200, mimetype='application/json')
+
+@app.route("/stylize", methods=['POST'])
+def post_params():
+    myid = str(int(time.time()*10000) + ".jpg")
+    tmp_img_post_path = '/tmp/styled_img_' + myid
+    
+    content_img_url = CONTENT_IMG_PATH + request.form['content_img_url']
+    alpha = request.form['alpha']
+    content_img = get_img(content_img_url)
+    style_size = request.form['style_scale'] * 512
+    print(content_img.shape)
+
+    # style_img = get_img_crop(style_img_url, resize=style_size)
+    style_img = get_img_crop(style_img_url)
 
     if style_size > 0:
         style_img = resize_to(style_img, style_size)
 
-    content_img = get_img(tmp_img_path)
     if keep_colors:
         style_img = preserve_colors_np(style_img, content_img)
 
@@ -62,7 +77,6 @@ def post():
     stylized_rgb = wct_model.predict(content_img, style_img, alpha, False, 0.6, False)
 
     save_img(tmp_img_post_path, stylized_rgb)
-
     return send_file(tmp_img_post_path)
 
 @app.route("/")
@@ -70,9 +84,15 @@ def get_index():
     # serve template
     return send_from_directory(BACKEND_PATH, TEMPLATE_PATH)
 
-@app.route("/javascript")
-def get_js():
-    return send_from_directory(BACKEND_PATH, JS_PATH)
+@app.route("/get_content_images")
+def get_content_images():
+    fli = os.listdir(CONTENT_IMG_PATH)
+    return jsonify(fli)
+
+@app.route("/get_style_images")
+def get_style_images():
+    fli = os.listdir(STYLE_IMG_PATH)
+    return jsonify(fli)
 
 def main():
     # init style model
