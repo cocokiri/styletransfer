@@ -23,6 +23,7 @@ STATIC_PATH    = STYLECODE_PATH + 'backend/static/'
 BACKEND_PATH   = STYLECODE_PATH + 'backend/'
 CONTENT_IMG_PATH = STYLECODE_PATH + 'backend/static/images/content/'
 STYLE_IMG_PATH = STYLECODE_PATH + 'backend/static/images/style/'
+RESULT_IMG_PATH = STYLECODE_PATH + 'backend/static/images/results/'
 
 CHECKPOINTS  = ['models/relu5_1', 'models/relu4_1', 'models/relu3_1', 'models/relu2_1', 'models/relu1_1']
 RELU_TARGETS = ['relu5_1', 'relu4_1', 'relu3_1', 'relu2_1', 'relu1_1']
@@ -40,29 +41,30 @@ wct_model = None
 @app.route("/upload_content", methods=['POST'])
 def post_content():
     f = request.files['content_img']
-    myid = str(int(time.time()*10000) + ".jpg")
+    myid = str(int(time.time()*10000)) + ".jpg"
     f.save(CONTENT_IMG_PATH + myid)
     print("+ new content image " + myid)
-    return Response("{'content_img_url':'" + myid + "'}", status=200, mimetype='application/json')
+    return Response(myid, status=200, mimetype='application/json')
 
 @app.route("/upload_style", methods=['POST'])
 def post_style():
     f = request.files['style_img']
-    myid = str(int(time.time()*10000) + ".jpg")
+    myid = str(int(time.time()*10000)) + ".jpg"
     f.save(STYLE_IMG_PATH + myid)
     print("+ new style image " + myid)
-    return Response("{'style_img_url':'" + myid + "'}", status=200, mimetype='application/json')
+    return Response(myid, status=200, mimetype='application/json')
 
 @app.route("/stylize", methods=['POST'])
 def post_params():
-    myid = str(int(time.time()*10000) + ".jpg")
-    tmp_img_post_path = '/tmp/styled_img_' + myid
-    
+    myid = str(int(time.time()*10000)) + ".jpg"
+    tmp_img_post_path = RESULT_IMG_PATH + myid
+   
+    style_img_url = STYLE_IMG_PATH + request.form['style_img_url']
     content_img_url = CONTENT_IMG_PATH + request.form['content_img_url']
-    alpha = request.form['alpha']
+    alpha = float(request.form['alpha'])
     content_img = get_img(content_img_url)
-    style_size = request.form['style_scale'] * 512
-    print(content_img.shape)
+    style_size = int(float(request.form['style_scale']) * 512)
+    keep_colors = False
 
     # style_img = get_img_crop(style_img_url, resize=style_size)
     style_img = get_img_crop(style_img_url)
@@ -77,7 +79,7 @@ def post_params():
     stylized_rgb = wct_model.predict(content_img, style_img, alpha, False, 0.6, False)
 
     save_img(tmp_img_post_path, stylized_rgb)
-    return send_file(tmp_img_post_path)
+    return Response(myid, status=200, mimetype='application/json')
 
 @app.route("/")
 def get_index():
