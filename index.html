@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<div id="imagesContainer">
+        <form action="http://192.168.5.165:8080/upload_content" method="POST" enctype="multipart/form-data">
+            <input id="contentImg" name="content_img" type="file" />
+            <!--<input name="mySubmit" type="submit" value="submit" />-->
+
+            <div class="uploadPreview" id="basePreview"> </div>
+        </form>
+
+        <form action="http://192.168.5.165:8080/upload_style" method="POST" enctype="multipart/form-data">
+            <input id="styleImg" name="style_img" type="file" />
+            <!--<input name="mySubmit" type="submit" value="submit" />-->
+            <div class="uploadPreview" id="stylePreview"> </div>
+        </form>
+</div>
+<button id="submit">SUBMIT</button>
+
+<div class="buttonwrap">
+
+    <form id="params" action="http://192.168.5.165:8080/stylize" method="post" target="dummyframe">
+        <input name="alpha" id="alpha" type="range" min="0" max="1" step="0.05"> Alpha
+        <input name="style_scale" id="styling" type="range" min="0" max="1" step="0.05"> Styling
+        <input name="content_size" id="scale" type="range" min="400" max="1000" step="10">Size
+        <input id="paramSubmit" type="submit" value="submit">
+    </form>
+
+</div>
+<img id="endImg" src="">
+
+
+<iframe name="dummyframe" id="dummyframe" width="0" height="0" border="0" style="display: none;"></iframe>
+<h1>CONTENT IMAGE</h1>
+<div class="Container" id="bases"> </div>
+<h1>STYLES</h1>
+<div class="Container" id="styles"></div>
+<style>
+
+    #imgThumbnail {
+        width: 10vw;
+        height: 10vh;
+        margin: 1rem;
+    }
+
+    #imagesContainer {
+        display:flex;
+        flex-direction: row;
+    }
+    #imagesContainer > {
+        margin-right: 5vh;
+    }
+    #Container {
+        display:flex;
+        flex-wrap: wrap;
+        max-height: 50vh;
+        max-width: 40vw;
+    }
+
+    .buttonwrap {
+        background: orange;
+        display:flex;
+        justify-content: center;
+    }
+    #submit {
+        background-color: black;
+        cursor: pointer;
+        border: 2px solid white;
+        font-size: 2em;
+        color: white;
+        width: 20vw;
+
+    }
+    .uploadPreview {
+        width: 500px;
+        height: 500px;
+        overflow: hidden;
+    }
+
+    image {
+        max-width: 100%;
+    }
+</style>
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="index.js"></script>
+
+</body>
+
+</html>
