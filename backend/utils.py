@@ -10,21 +10,18 @@ from coral import coral_numpy # , coral_pytorch
 
 def get_files(img_dir):
     files = os.listdir(img_dir)
-    paths = []
-    for x in files:
-        paths.append(os.path.join(img_dir, x))
     # return [os.path.join(img_dir,x) for x in files]
-    return paths
+    return [os.path.join(img_dir, x) for x in files]
 
 def save_img(out_path, img):
     img = np.clip(img, 0, 255).astype(np.uint8)
     scipy.misc.imsave(out_path, img)
 
 def get_img(src):
-   img = scipy.misc.imread(src, mode='RGB')
-   if not (len(img.shape) == 3 and img.shape[2] == 3):
-       img = np.dstack((img,img,img))
-   return img
+    img = scipy.misc.imread(src, mode='RGB')
+    if len(img.shape) != 3 or img.shape[2] != 3:
+        img = np.dstack((img,img,img))
+    return img
 
 def center_crop(img, size=256):
     height, width = img.shape[0], img.shape[1]

@@ -7,8 +7,7 @@ import numpy as np
 
 def matSqrt_numpy(x):
     U,D,V = np.linalg.svd(x)
-    result = U.dot(np.diag(np.sqrt(D))).dot(V.T)
-    return result
+    return U.dot(np.diag(np.sqrt(D))).dot(V.T)
 
 def coral_numpy(source, target):
     n_channels = source.shape[-1]

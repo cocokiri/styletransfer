@@ -242,7 +242,7 @@ def style_swap(content, style, patch_size, stride):
     # For each spatial position find index of max along channel/patch dim  
     ss_argmax = tf.argmax(ss_enc, axis=3)
     encC = tf.shape(ss_enc)[-1]  # Num channels in intermediate conv output, same as # of patches
-    
+
     # One-hot encode argmax with same size as ss_enc, with 1's in max channel idx for each spatial pos
     ss_oh = tf.one_hot(ss_argmax, encC, 1., 0., 3)
 
@@ -262,7 +262,7 @@ def style_swap(content, style, patch_size, stride):
     ss_oh_sum = tf.reduce_sum(ss_oh, axis=3, keep_dims=True)
 
     filter_ones = tf.ones([patch_size,patch_size,1,1], dtype=tf.float32)
-    
+
     deconv_out_shape = tf.stack([1,deconv_out_H,deconv_out_W,1])  # Same spatial size as ss_dec with 1 channel
 
     counting = tf.nn.conv2d_transpose(ss_oh_sum,
@@ -273,9 +273,7 @@ def style_swap(content, style, patch_size, stride):
 
     counting = tf.tile(counting, [1,1,1,nC])  # Repeat along channel dim to make same size as ss_dec
 
-    interpolated_dec = tf.divide(ss_dec, counting)
-
-    return interpolated_dec
+    return tf.divide(ss_dec, counting)
 
 ### Adaptive Instance Normalization ###
 
