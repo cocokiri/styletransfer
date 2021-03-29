@@ -321,14 +321,10 @@ class T7Reader:
 
     def read_long_array(self, n):
         if self.force_8bytes_long:
-            lst = []
-            for i in range(n):
-                lst.append(self.read_long())
-            return lst
-        else:
-            arr = array('l')
-            arr.fromfile(self.f, n)
-            return arr.tolist()
+            return [self.read_long() for _ in range(n)]
+        arr = array('l')
+        arr.fromfile(self.f, n)
+        return arr.tolist()
 
     def read_float(self):
         return self._read('f')[0]
@@ -362,9 +358,13 @@ class T7Reader:
         elif typeidx == TYPE_STRING:
             return self.read_string()
 
-        elif (typeidx == TYPE_TABLE or typeidx == TYPE_TORCH or
-                typeidx == TYPE_FUNCTION or typeidx == TYPE_RECUR_FUNCTION or
-                typeidx == LEGACY_TYPE_RECUR_FUNCTION):
+        elif typeidx in [
+            TYPE_TABLE,
+            TYPE_TORCH,
+            TYPE_FUNCTION,
+            TYPE_RECUR_FUNCTION,
+            LEGACY_TYPE_RECUR_FUNCTION,
+        ]:
             # read the object reference index
             index = self.read_int()
 
@@ -373,15 +373,16 @@ class T7Reader:
                 return self.objects[index]
 
             # otherwise read it
-            if (typeidx == TYPE_FUNCTION or typeidx == TYPE_RECUR_FUNCTION or
-                    typeidx == LEGACY_TYPE_RECUR_FUNCTION):
+            if typeidx in [
+                TYPE_FUNCTION,
+                TYPE_RECUR_FUNCTION,
+                LEGACY_TYPE_RECUR_FUNCTION,
+            ]:
                 size = self.read_int()
                 dumped = self.f.read(size)
                 upvalues = self.read_obj()
                 obj = LuaFunction(size, dumped, upvalues)
                 self.objects[index] = obj
-                return obj
-
             elif typeidx == TYPE_TORCH:
                 version = self.read_string(disable_utf8=True)
                 if version.startswith(b'V '):
@@ -405,8 +406,6 @@ class T7Reader:
                     # After self.objects is populated, it's safe to read in
                     # case self-referential
                     obj._obj = self.read_obj()
-                return obj
-
             else:  # it is a table: returns a custom dict or a list
                 size = self.read_int()
                 # custom hashable dict, so that it can be a key, see above
@@ -426,7 +425,7 @@ class T7Reader:
                     if self.use_list_heuristic:
                         if not isinstance(k, int) or k <= 0:
                             keys_natural = False
-                        elif isinstance(k, int):
+                        else:
                             key_sum += k
 
                 if self.use_list_heuristic:
@@ -444,7 +443,7 @@ class T7Reader:
                             lst.append(elem)
                         self.objects[index] = obj = lst
 
-                return obj
+            return obj
 
         else:
             raise T7ReaderException(

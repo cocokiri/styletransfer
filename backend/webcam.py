@@ -172,7 +172,7 @@ def main():
             out_shape = (img_shape[1],img_shape[0])
         print('Video Out Shape:', out_shape)
         video_writer = cv2.VideoWriter(args.video_out, fourcc, args.fps, out_shape)
-    
+
     fps = FPS().start() # Track FPS processing speed
 
     # Toggles changed with kb shortcuts
@@ -182,82 +182,81 @@ def main():
 
     count = 0
 
-    while(True):
+    while True:
         ret, frame = cap.read()
 
-        if ret is True:       
-            frame_resize = cv2.resize(frame, None, fx=style_window.scale, fy=style_window.scale)
-
-            if args.noise:  # Generate textures from noise instead of images
-                frame_resize = np.random.randint(0, 256, frame_resize.shape, np.uint8)
-
-            count += 1
-            print("Frame:",count,"Orig shape:",frame.shape,"New shape",frame_resize.shape)
-
-            content_rgb = cv2.cvtColor(frame_resize, cv2.COLOR_BGR2RGB)  # OpenCV uses BGR, we need RGB
-
-            if args.random > 0 and count % args.random == 0:
-                style_window.set_style(random=True)
-
-            if keep_colors:
-                style_rgb = preserve_colors_np(style_window.style_rgb, content_rgb)
-            else:
-                style_rgb = style_window.style_rgb
-
-            # Run the frame through the style network
-            stylized_rgb = wct_model.predict(content_rgb, style_rgb, style_window.alpha, swap_style, style_window.ss_alpha, use_adain)
-
-            # Repeat stylization pipeline
-            if style_window.passes > 1:
-                for i in range(style_window.passes-1):
-                    stylized_rgb = wct_model.predict(stylized_rgb, style_rgb, style_window.alpha, swap_style, style_window.ss_alpha, use_adain)
-
-            # Stitch the style + stylized output together
-            if args.concat:
-                # Resize style img to same height as frame
-                style_rgb_resized = cv2.resize(style_rgb, (stylized_rgb.shape[0], stylized_rgb.shape[0]))
-                stylized_rgb = np.hstack([style_rgb_resized, stylized_rgb])
-            
-            stylized_bgr = cv2.cvtColor(stylized_rgb, cv2.COLOR_RGB2BGR)
-                
-            if args.video_out is not None:
-                stylized_bgr = cv2.resize(stylized_bgr, out_shape) # Make sure frame matches video size
-                video_writer.write(stylized_bgr)
-
-            cv2.imshow('WCT Universal Style Transfer', stylized_bgr)
-
-            fps.update()
-
-            key = cv2.waitKey(10) 
-            if key & 0xFF == ord('r'):   # Load new random style
-                style_window.set_style(random=True)
-            elif key & 0xFF == ord('c'): # Toggle color preservation
-                keep_colors = not keep_colors
-                print('Switching to keep_colors:',keep_colors)
-            elif key & 0xFF == ord('s'): # Toggle style swap
-                swap_style = not swap_style
-                print('New value for flag swap_style:',swap_style)
-            elif key & 0xFF == ord('a'): # Toggle AdaIN
-                use_adain = not use_adain
-                print('New value for flag use_adain:',use_adain)
-            elif key & 0xFF == ord('w'): # Write stylized frame
-                out_f = "{}.png".format(time.time())
-                save_img(out_f, stylized_rgb)
-                print('Saved image to:',out_f)
-            elif key & 0xFF == ord('q'): # Quit gracefully
-                break
-        else:
+        if ret is not True:
             break
 
+        frame_resize = cv2.resize(frame, None, fx=style_window.scale, fy=style_window.scale)
+
+        if args.noise:  # Generate textures from noise instead of images
+            frame_resize = np.random.randint(0, 256, frame_resize.shape, np.uint8)
+
+        count += 1
+        print("Frame:",count,"Orig shape:",frame.shape,"New shape",frame_resize.shape)
+
+        content_rgb = cv2.cvtColor(frame_resize, cv2.COLOR_BGR2RGB)  # OpenCV uses BGR, we need RGB
+
+        if args.random > 0 and count % args.random == 0:
+            style_window.set_style(random=True)
+
+        if keep_colors:
+            style_rgb = preserve_colors_np(style_window.style_rgb, content_rgb)
+        else:
+            style_rgb = style_window.style_rgb
+
+        # Run the frame through the style network
+        stylized_rgb = wct_model.predict(content_rgb, style_rgb, style_window.alpha, swap_style, style_window.ss_alpha, use_adain)
+
+            # Repeat stylization pipeline
+        if style_window.passes > 1:
+            for _ in range(style_window.passes-1):
+                stylized_rgb = wct_model.predict(stylized_rgb, style_rgb, style_window.alpha, swap_style, style_window.ss_alpha, use_adain)
+
+        # Stitch the style + stylized output together
+        if args.concat:
+            # Resize style img to same height as frame
+            style_rgb_resized = cv2.resize(style_rgb, (stylized_rgb.shape[0], stylized_rgb.shape[0]))
+            stylized_rgb = np.hstack([style_rgb_resized, stylized_rgb])
+
+        stylized_bgr = cv2.cvtColor(stylized_rgb, cv2.COLOR_RGB2BGR)
+
+        if args.video_out is not None:
+            stylized_bgr = cv2.resize(stylized_bgr, out_shape) # Make sure frame matches video size
+            video_writer.write(stylized_bgr)
+
+        cv2.imshow('WCT Universal Style Transfer', stylized_bgr)
+
+        fps.update()
+
+        key = cv2.waitKey(10)
+        if key & 0xFF == ord('r'):   # Load new random style
+            style_window.set_style(random=True)
+        elif key & 0xFF == ord('c'): # Toggle color preservation
+            keep_colors = not keep_colors
+            print('Switching to keep_colors:',keep_colors)
+        elif key & 0xFF == ord('s'): # Toggle style swap
+            swap_style = not swap_style
+            print('New value for flag swap_style:',swap_style)
+        elif key & 0xFF == ord('a'): # Toggle AdaIN
+            use_adain = not use_adain
+            print('New value for flag use_adain:',use_adain)
+        elif key & 0xFF == ord('w'): # Write stylized frame
+            out_f = "{}.png".format(time.time())
+            save_img(out_f, stylized_rgb)
+            print('Saved image to:',out_f)
+        elif key & 0xFF == ord('q'): # Quit gracefully
+            break
     fps.stop()
     print('[INFO] elapsed time (total): {:.2f}'.format(fps.elapsed()))
     print('[INFO] approx. FPS: {:.2f}'.format(fps.fps()))
 
     cap.stop()
-    
+
     if args.video_out is not None:
         video_writer.release()
-    
+
     cv2.destroyAllWindows()
 
 
